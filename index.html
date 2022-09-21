@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://unpkg.com/gsap@3.11.1/dist/gsap.min.js"></script>
+
+    <style>
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body{
+            height: 100%;
+        }
+
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: #000;
+        }
+
+        .box{
+            background-color: #fff;
+            margin-top: 100px;
+            height: 100px;
+            width: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box"></div>
+
+    <script>
+        gsap.registerEffect({
+            name: 'fadeIn', // アニメーションの名前
+
+            // 未指定の場合のデフォルト値を設定
+            defaults: {
+                duration: 1,
+                y: 30,
+                repeat: -1,
+            },
+
+            // アニメーションを設定
+            effect: (targets, config) => {
+                return gsap.fromTo(targets, config.duration, {
+                    autoAlpha: 0,
+                    y: config.y,
+                },
+                {
+                    autoAlpha: 1,
+                    y: 0,
+                    ease: 'Power4.Out',
+                    repeat: config.repeat,
+                });
+            },
+
+            extendTimeline: true, // gsap.timeline()で使えるようにする
+        });
+
+        gsap.effects.fadeIn('.box', {
+            y: 15,
+        });
+    </script>
+</body>
+
+</html>
